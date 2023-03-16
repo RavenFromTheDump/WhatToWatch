@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import MainPage from './pages/main-page';
 
 
 const root = ReactDOM.createRoot(
@@ -10,6 +9,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+    <App movie={{ title: 'The Grand Budapest Hotel', genre: 'Drama', releaseDate: '2014' }} />
   </React.StrictMode>,
 );
