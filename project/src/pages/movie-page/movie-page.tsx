@@ -1,19 +1,20 @@
-import { Movie } from '../../types/main-page.types';
+
+import { FC } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getMovieById } from '../../utils/movie';
 import CatalogMovieList from '../../components/movie-list/catalog-movie-list';
 import MovieTabs from '../../components/tabs/movie-tabs';
 import NotFoundPage from '../not-found-page/not-found-page';
+import { useAppSelector } from '../../hooks/redux.hooks';
+import { useMemo } from 'react';
+import { MOVIE_LIST } from '../../mocks/films';
 
-type Props = {
-  movieList: Movie[];
-}
 
-
-const MoviePage: React.FC<Props> = (props: Props) => {
-  const { movieList } = props;
+const MoviePage: FC = () => {
+  const { movies } = useAppSelector((state) => state);
   const { id } = useParams();
   const currentMovie = getMovieById(id ?? '');
+  const filteredMovies = MOVIE_LIST.filter((movie) => movie.genre === currentMovie?.genre && movie.id !== currentMovie?.id).slice(0, 4);
 
   if (!currentMovie) {
     return <NotFoundPage />;
@@ -45,17 +46,17 @@ const MoviePage: React.FC<Props> = (props: Props) => {
                 </div>
               </li>
               <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
+                <a className="user-block__link" href="/">Sign out</a>
               </li>
             </ul>
           </header>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{currentMovie.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{currentMovie.genre}</span>
+                <span className="film-card__year">{currentMovie.releaseDate}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -95,11 +96,7 @@ const MoviePage: React.FC<Props> = (props: Props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <CatalogMovieList
-            movies={
-              movieList.filter((movie) =>
-                movie.genre === currentMovie.genre && movie.id !== currentMovie.id
-              ).slice(0, 4)
-            }
+            movies={filteredMovies}
           />
         </section>
 

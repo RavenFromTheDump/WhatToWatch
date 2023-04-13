@@ -1,17 +1,25 @@
-
-import { Movie } from '../../types/main-page.types';
+import { Link } from 'react-router-dom';
+import { Genre, Movie } from '../../types/main-page.types';
 import CatalogMovieList from '../../components/movie-list/catalog-movie-list';
+import { useAppSelector } from '../../hooks/redux.hooks';
+import GenresList from '../../components/genre-list/genre-list';
+import { useState, FC } from 'react';
+import ShowMore from '../../components/show-more/show-more';
+import { MOVIE_LIST } from '../../mocks/films';
+
 
 type Props = {
   movie: Movie;
-  movieList: Movie[];
 }
 
-const MainPage: React.FC<Props> = (props) => {
+const MainPage: FC<Props> = (props) => {
   const {
-    movie: { title, genre, releaseDate, },
-    movieList
+    movie: { title, genre, releaseDate, }
   } = props;
+  const { activeGenre } = useAppSelector((state) => state);
+  const [numberOfShownMovies, setNumberOfShownMovies] = useState<number>(8);
+  const filteredMovies = MOVIE_LIST.filter((movie) => movie.genre === activeGenre || activeGenre === Genre.ALL_GENRES);
+
   return (
     <div>
       <div className="visually-hidden">
@@ -55,11 +63,11 @@ const MainPage: React.FC<Props> = (props) => {
 
         <header className="page-header film-card__head">
           <div className="logo">
-            <a className="logo__link">
+            <Link className="logo__link" to="/">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <ul className="user-block">
@@ -69,7 +77,7 @@ const MainPage: React.FC<Props> = (props) => {
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
+              <a className="user-block__link" href="/">Sign out</a>
             </li>
           </ul>
         </header>
@@ -111,53 +119,20 @@ const MainPage: React.FC<Props> = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenresList genres={Object.values(Genre)} setNumberOfShownMovies={setNumberOfShownMovies} />
 
-          <CatalogMovieList movies={movieList} />
+          <CatalogMovieList movies={filteredMovies.slice(0, numberOfShownMovies)} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMore setNumberOfShownMovies={setNumberOfShownMovies} isVisible={filteredMovies.length > numberOfShownMovies} />
         </section>
 
         <footer className="page-footer">
           <div className="logo">
-            <a className="logo__link logo__link--light">
+            <Link className="logo__link logo__link--light" to="/">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">

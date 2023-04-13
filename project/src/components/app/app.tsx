@@ -8,32 +8,31 @@ import MoviePage from '../../pages/movie-page/movie-page';
 import PrivateRoute from '../../private-route/private-route';
 import { Movie } from '../../types/main-page.types';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AuthorizationStatus, ROUTES } from '../../app-routes.const';
+import { AuthorizationStatus, BrowserRoutes } from '../../app-routes.const';
 
 type Props = {
   movie: Movie;
-  movieList: Movie[];
 }
 
 
 const App: React.FC<Props> = (props) => {
-  const { movie, movieList } = props;
+  const { movie } = props;
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={ROUTES.MAIN} element={<MainPage movie={movie} movieList={movieList} />} />
-        <Route path={ROUTES.ADDREVIEW} element={<AddReviewPage />} />
-        <Route path={ROUTES.FILM} element={<MoviePage movieList={movieList} />} />
-        <Route path={ROUTES.MYLIST}
+        <Route path={BrowserRoutes.MAIN} element={<MainPage movie={movie} />} />
+        <Route path={BrowserRoutes.ADDREVIEW} element={<AddReviewPage />} />
+        <Route path={BrowserRoutes.FILM} element={<MoviePage />} />
+        <Route path={BrowserRoutes.MYLIST}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <MyListPage movieList={movieList} />
+              <MyListPage />
             </PrivateRoute>
           }
         />
-        <Route path={ROUTES.NOTFOUND} element={<NotFoundPage />} />
-        <Route path={ROUTES.PLAYER} element={<PlayerPage movie={movie} />} />
-        <Route path={ROUTES.SIGNIN} element={<SignInPage />} />
+        <Route path={BrowserRoutes.NOTFOUND} element={<NotFoundPage />} />
+        <Route path={BrowserRoutes.PLAYER} element={<PlayerPage movie={movie} />} />
+        <Route path={BrowserRoutes.SIGNIN} element={<SignInPage />} />
       </Routes>
     </BrowserRouter>
   );
