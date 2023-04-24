@@ -4,11 +4,13 @@ import App from './components/app/app';
 import { MOCK_MOVIE } from './mocks/films';
 import { Provider } from 'react-redux';
 import { store } from './store/index';
-
+import { fetchFilmsAction } from './store/api-actions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+
+store.dispatch(fetchFilmsAction());
 
 root.render(
   <React.StrictMode>

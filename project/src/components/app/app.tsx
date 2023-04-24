@@ -9,6 +9,7 @@ import PrivateRoute from '../../private-route/private-route';
 import { Movie } from '../../types/main-page.types';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AuthorizationStatus, BrowserRoutes } from '../../app-routes.const';
+import { useAppSelector } from '../../hooks/redux.hooks';
 
 type Props = {
   movie: Movie;
@@ -17,12 +18,13 @@ type Props = {
 
 const App: React.FC<Props> = (props) => {
   const { movie } = props;
+  const { movies } = useAppSelector((state) => state);
   return (
     <BrowserRouter>
       <Routes>
         <Route path={BrowserRoutes.MAIN} element={<MainPage movie={movie} />} />
         <Route path={BrowserRoutes.ADDREVIEW} element={<AddReviewPage />} />
-        <Route path={BrowserRoutes.FILM} element={<MoviePage />} />
+        <Route path={BrowserRoutes.FILM} element={<MoviePage movies={movies} />} />
         <Route path={BrowserRoutes.MYLIST}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>

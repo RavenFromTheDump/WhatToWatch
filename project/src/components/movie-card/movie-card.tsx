@@ -8,7 +8,7 @@ type Props = {
 }
 
 const MovieCard: FC<Props> = (props) => {
-  const { movie: { videoPath, posterUrl, id, title } } = props;
+  const { movie: { videoLink, posterImage, id, name } } = props;
 
   const [isPreviewVideoStarted, setIsPreviewVideoStarted] = useState<boolean>(false);
   const [isPreviewStarted, setPreviewStarted] = useState<boolean>(false);
@@ -37,8 +37,8 @@ const MovieCard: FC<Props> = (props) => {
     <article className="small-film-card catalog__films-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="small-film-card__image">
         <VideoPlayer
-          src={videoPath}
-          poster={posterUrl}
+          src={videoLink}
+          poster={posterImage}
           muted
           height="175"
           width="280"
@@ -46,7 +46,7 @@ const MovieCard: FC<Props> = (props) => {
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{title}</Link>
+        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
       </h3>
     </article>
   );

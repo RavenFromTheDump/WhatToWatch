@@ -1,8 +1,9 @@
-import { MOVIE_LIST } from '../mocks/films';
-import { MovieRatingDescription } from '../types/main-page.types';
 
-export const getMovieById = (id: string) => MOVIE_LIST.find((movie) => movie.id === id);
+import { Movie, MovieRatingDescription } from '../types/main-page.types';
 
+export function getMovieById(id: number): Movie | undefined {
+  return Array<Movie>().find<Movie>((movie): movie is Movie => movie.id === id);
+}
 
 export const getRatingDescription = (rating: number): MovieRatingDescription | string => {
   if (rating <= 2) {

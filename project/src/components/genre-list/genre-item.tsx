@@ -2,7 +2,6 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hooks';
 import { changeGenre } from '../../store/action';
 import { Genre } from '../../types/main-page.types';
-import { MOVIE_LIST } from '../../mocks/films';
 import { AMOUNT_OF_VISIBLE_MOVIES_STEP } from '../../const/const';
 
 type Props = {

@@ -9,10 +9,10 @@ type Props = {
 const OverviewTab: FC<Props> = (props) => {
   const {
     rating,
-    votesCount,
-    director,
     description,
-    actors,
+    scoresCount,
+    director,
+    starring
   } = props.movie;
   return (
     <>
@@ -20,7 +20,7 @@ const OverviewTab: FC<Props> = (props) => {
         <div className="film-rating__score">{rating}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">{getRatingDescription(Number(rating))}</span>
-          <span className="film-rating__count">{votesCount}</span>
+          <span className="film-rating__count">{scoresCount}</span>
         </p>
       </div>
 
@@ -31,7 +31,7 @@ const OverviewTab: FC<Props> = (props) => {
 
         <p className="film-card__starring">
           <strong>
-            Starring: {actors.join(', ')} and other
+            Starring: {starring.join(', ')} and other
           </strong>
         </p>
       </div>

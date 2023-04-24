@@ -6,7 +6,7 @@ type Props = {
 }
 
 const PlayerPage: React.FC<Props> = (props) => {
-  const { videoPath, posterUrl } = props.movie;
+  const { videoLink, posterImage } = props.movie;
   return (
     <>
       <div className="visually-hidden">
@@ -39,7 +39,7 @@ const PlayerPage: React.FC<Props> = (props) => {
       </div>
 
       <div className="player">
-        <video src={videoPath} className="player__video" poster={posterUrl}></video>
+        <video src={videoLink} className="player__video" poster={posterImage}></video>
 
         <button type="button" className="player__exit">Exit</button>
 

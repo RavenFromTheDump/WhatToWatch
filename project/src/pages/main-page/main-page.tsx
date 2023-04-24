@@ -5,7 +5,7 @@ import { useAppSelector } from '../../hooks/redux.hooks';
 import GenresList from '../../components/genre-list/genre-list';
 import { useState, FC } from 'react';
 import ShowMore from '../../components/show-more/show-more';
-import { MOVIE_LIST } from '../../mocks/films';
+import Spinner from '../../components/spinner/spinner';
 
 
 type Props = {
@@ -13,12 +13,14 @@ type Props = {
 }
 
 const MainPage: FC<Props> = (props) => {
-  const {
-    movie: { title, genre, releaseDate, }
-  } = props;
-  const { activeGenre } = useAppSelector((state) => state);
+  const { movie: { name, genre, released } } = props;
+  const { activeGenre, movies, isLoading } = useAppSelector((state) => state);
   const [numberOfShownMovies, setNumberOfShownMovies] = useState<number>(8);
-  const filteredMovies = MOVIE_LIST.filter((movie) => movie.genre === activeGenre || activeGenre === Genre.ALL_GENRES);
+  const filteredMovies = movies.filter((movie) => movie.genre === activeGenre || activeGenre === Genre.ALL_GENRES);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div>
@@ -89,10 +91,10 @@ const MainPage: FC<Props> = (props) => {
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{releaseDate}</span>
+                <span className="film-card__year">{released}</span>
               </p>
 
               <div className="film-card__buttons">

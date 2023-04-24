@@ -1,17 +1,17 @@
 export type Movie = {
-  id: string;
+  id: number;
   rating: string;
   director: string;
-  actors: string[];
-  title: string;
+  starring: string[];
+  name: string;
   genre: Genre;
-  releaseDate: string;
-  videoPath: string;
+  released: number;
+  videoLink: string;
   description: string;
-  duration: string;
+  runTime: number;
   ratingDescription?: MovieRatingDescription;
-  votesCount: string;
-  posterUrl: string;
+  scoresCount: number;
+  posterImage: string;
 }
 
 export enum MovieRatingDescription {

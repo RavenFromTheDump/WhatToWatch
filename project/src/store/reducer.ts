@@ -1,11 +1,19 @@
-import { Genre } from '../types/main-page.types';
-import { MOVIE_LIST } from '../mocks/films';
+import { Genre, Movie } from '../types/main-page.types';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre } from './action';
+import {
+  changeGenre, loadMovies, setLoading,
+} from './action';
 
-const initialState = {
+type TInitialState = {
+  activeGenre: Genre;
+  movies: Movie[];
+  isLoading: boolean;
+};
+
+const initialState: TInitialState = {
   activeGenre: Genre.ALL_GENRES,
-  movies: MOVIE_LIST,
+  movies: [],
+  isLoading: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -15,4 +23,10 @@ export const reducer = createReducer(initialState, (builder) => {
 
       state.activeGenre = genre;
     })
+    .addCase(loadMovies, (state, action) => {
+      state.movies = action.payload;
+    })
+    .addCase(setLoading, (state, action) => {
+      state.isLoading = action.payload;
+    });
 });

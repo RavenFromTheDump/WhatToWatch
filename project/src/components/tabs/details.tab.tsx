@@ -6,13 +6,7 @@ type Props = {
 }
 
 const DetailsTab: FC<Props> = (props) => {
-  const {
-    director,
-    actors,
-    duration,
-    genre,
-    releaseDate,
-  } = props.movie;
+  const { director, starring, runTime, genre, released } = props.movie;
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
@@ -23,7 +17,7 @@ const DetailsTab: FC<Props> = (props) => {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {actors.map((actor) => <Fragment key={actor}>{actor}, <br /></Fragment>)}
+            {starring.map((actor) => <Fragment key={actor}>{actor}, <br /></Fragment>)}
           </span>
         </p>
       </div>
@@ -31,7 +25,7 @@ const DetailsTab: FC<Props> = (props) => {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{duration}</span>
+          <span className="film-card__details-value">{runTime}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
@@ -39,7 +33,7 @@ const DetailsTab: FC<Props> = (props) => {
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Released</strong>
-          <span className="film-card__details-value">{releaseDate}</span>
+          <span className="film-card__details-value">{released}</span>
         </p>
       </div>
     </div>
