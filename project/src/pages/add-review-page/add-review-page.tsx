@@ -1,14 +1,25 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getMovieById } from '../../utils/movie';
 import AddReview from '../../components/add-review/add-review';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { UserBlock } from '../../components/user-block/user-block';
+import { Movie } from '../../types/main-page.types';
+import { getMovie } from '../../transport/api.requests';
 
 const AddReviewPage: FC = () => {
   const { id } = useParams();
 
-  const movie = getMovieById(Number(id));
+  const [movie, setMovie] = useState<Movie | null>();
+
+  useEffect(() => {
+    getMovie(Number(id)).then(({ data }) => {
+      if (data) {
+        setMovie(data);
+      } else {
+        return <NotFoundPage />;
+      }
+    });
+  }, [id]);
 
   if (!movie) {
     return <NotFoundPage />;
@@ -54,7 +65,7 @@ const AddReviewPage: FC = () => {
       </div>
 
       <div className="add-review">
-        <AddReview />
+        <AddReview movieId={Number(id)} />
       </div>
     </section>
   );

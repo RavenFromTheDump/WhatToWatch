@@ -1,6 +1,6 @@
 export type Movie = {
   id: number;
-  rating: string;
+  rating: number;
   director: string;
   starring: string[];
   name: string;
