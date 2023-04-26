@@ -1,12 +1,11 @@
-import { Movie } from '../../types/main-page.types';
 import { FC } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getMovieById } from '../../utils/movie';
 import CatalogMovieList from '../../components/movie-list/catalog-movie-list';
 import MovieTabs from '../../components/tabs/movie-tabs';
 import NotFoundPage from '../not-found-page/not-found-page';
-import { useAppSelector } from '../../hooks/redux.hooks';
-import { useMemo } from 'react';
+import { Movie } from '../../types/main-page.types';
+import { UserBlock } from '../../components/user-block/user-block';
 
 type Props = {
   movies: Movie[];
@@ -15,6 +14,7 @@ type Props = {
 const MoviePage: FC<Props> = (props) => {
   const { movies } = props;
   const { id } = useParams();
+
   const currentMovie = getMovieById(Number(id));
   const filteredMovies = movies.filter((movie) => movie.genre === currentMovie?.genre && movie.id !== currentMovie?.id).slice(0, 4);
 
@@ -34,23 +34,14 @@ const MoviePage: FC<Props> = (props) => {
 
           <header className="page-header film-card__head">
             <div className="logo">
-              <Link to="/" className="logo__link">
+              <Link to={'/'} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
               </Link>
             </div>
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link" href="/">Sign out</a>
-              </li>
-            </ul>
+            <UserBlock />
           </header>
 
           <div className="film-card__wrap">
@@ -104,11 +95,11 @@ const MoviePage: FC<Props> = (props) => {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link to={'/'} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">

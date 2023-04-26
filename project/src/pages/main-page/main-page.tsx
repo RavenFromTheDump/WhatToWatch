@@ -1,19 +1,20 @@
-import { Link } from 'react-router-dom';
+import { FC, useState } from 'react';
 import { Genre, Movie } from '../../types/main-page.types';
-import CatalogMovieList from '../../components/movie-list/catalog-movie-list';
 import { useAppSelector } from '../../hooks/redux.hooks';
+import { Link } from 'react-router-dom';
+import CatalogMovieList from '../../components/movie-list/catalog-movie-list';
 import GenresList from '../../components/genre-list/genre-list';
-import { useState, FC } from 'react';
 import ShowMore from '../../components/show-more/show-more';
 import Spinner from '../../components/spinner/spinner';
-
+import { UserBlock } from '../../components/user-block/user-block';
 
 type Props = {
   movie: Movie;
-}
+};
 
 const MainPage: FC<Props> = (props) => {
   const { movie: { name, genre, released } } = props;
+
   const { activeGenre, movies, isLoading } = useAppSelector((state) => state);
   const [numberOfShownMovies, setNumberOfShownMovies] = useState<number>(8);
   const filteredMovies = movies.filter((movie) => movie.genre === activeGenre || activeGenre === Genre.ALL_GENRES);
@@ -23,7 +24,7 @@ const MainPage: FC<Props> = (props) => {
   }
 
   return (
-    <div>
+    <>
       <div className="visually-hidden">
         <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
           <symbol id="add" viewBox="0 0 19 20">
@@ -65,23 +66,14 @@ const MainPage: FC<Props> = (props) => {
 
         <header className="page-header film-card__head">
           <div className="logo">
-            <Link className="logo__link" to="/">
+            <Link to={'/'} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
             </Link>
           </div>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link" href="/">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
 
         <div className="film-card__wrap">
@@ -100,13 +92,13 @@ const MainPage: FC<Props> = (props) => {
               <div className="film-card__buttons">
                 <button className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
+                    <use xlinkHref="#play-s" />
                   </svg>
                   <span>Play</span>
                 </button>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref="#add" />
                   </svg>
                   <span>My list</span>
                   <span className="film-card__count">9</span>
@@ -130,7 +122,7 @@ const MainPage: FC<Props> = (props) => {
 
         <footer className="page-footer">
           <div className="logo">
-            <Link className="logo__link logo__link--light" to="/">
+            <Link to={'/'} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -142,7 +134,7 @@ const MainPage: FC<Props> = (props) => {
           </div>
         </footer>
       </div>
-    </div>
+    </>
   );
 };
 

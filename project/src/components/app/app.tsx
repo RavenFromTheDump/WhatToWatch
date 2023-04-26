@@ -5,10 +5,10 @@ import MyListPage from '../../pages/my-list-page/my-list-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PlayerPage from '../../pages/player-page/player-page';
 import MoviePage from '../../pages/movie-page/movie-page';
-import PrivateRoute from '../../private-route/private-route';
+import PrivateRoute from '../private-route/private-route';
 import { Movie } from '../../types/main-page.types';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AuthorizationStatus, BrowserRoutes } from '../../app-routes.const';
+import { BrowserRoutes } from '../../app-routes.const';
 import { useAppSelector } from '../../hooks/redux.hooks';
 
 type Props = {
@@ -27,7 +27,7 @@ const App: React.FC<Props> = (props) => {
         <Route path={BrowserRoutes.FILM} element={<MoviePage movies={movies} />} />
         <Route path={BrowserRoutes.MYLIST}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute>
               <MyListPage />
             </PrivateRoute>
           }
