@@ -1,26 +1,29 @@
 export type Movie = {
   id: number;
-  rating: number;
-  director: string;
-  starring: string[];
   name: string;
   genre: Genre;
   released: number;
-  videoLink: string;
+  posterImage: string;
   description: string;
-  runTime: number;
+  rating: number;
   ratingDescription?: MovieRatingDescription;
   scoresCount: number;
-  posterImage: string;
+  director: string;
+  starring: string[];
+  runTime: number;
+  videoLink: string;
+  backgroundImage: string;
 }
 
 export enum MovieRatingDescription {
-  BAD = 'bad',
+  BAD = 'Bad',
   NORMAL = 'Normal',
   GOOD = 'Good',
   VERYGOOD = 'Very good',
   AWESOME = 'Awesome',
 }
+
+export const ALL_GENRES = 'All genres';
 
 export enum Genre {
   ALL_GENRES = 'All genres',
@@ -34,5 +37,3 @@ export enum Genre {
   SCI_FI = 'Sci-fi',
   THRILLER = 'Thriller'
 }
-
-export default Movie;
