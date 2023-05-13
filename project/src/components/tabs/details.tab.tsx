@@ -1,5 +1,5 @@
 import { FC, Fragment } from 'react';
-import Movie from '../../types/main-page.types';
+import { Movie } from '../../types/main-page.types';
 
 type Props = {
   movie: Movie;
